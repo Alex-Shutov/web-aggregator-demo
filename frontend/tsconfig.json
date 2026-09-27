@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "baseUrl": ".",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "noEmit": true,
+    "jsx": "react-jsx",
+  },
+  "paths": {
+    "@/*": ["./src/*"],
+    "@hooks/*": ["./src/hooks/*"],
+    "@pages/*": ["./src/pages/*"],
+    "@shared/*": ["./src/shared/*"],
+    "@styles/*": ["./src/styles/*"],
+    "@utils/*": ["./src/utils/*"],
+    "@components/*": ["./src/components/*"],
+    "@public/*": ["./public/*"]
+  },
+  "include": [
+    "src",
+    "public"
+  ],
+  "extends": "./tsconfig.paths.json"
+}

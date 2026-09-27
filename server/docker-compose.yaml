@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+  minio:
+    env_file:
+      - .env
+    container_name: minio
+    image: quay.io/minio/minio:RELEASE.2022-02-18T01-50-10Z
+    volumes:
+      - ./data:/data
+    networks:
+      - backend
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      MINIO_ADDRESS: ':9000'
+      MINIO_CONSOLE_ADDRESS: ':9001'
+    command: minio server /data
+  postgres:
+    env_file:
+      - .env
+    restart: always
+    image: postgres:13
+    container_name: postgres_db
+    networks:
+      - backend
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: nestserver
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+networks:
+  backend:
+volumes:
+  postgres_data:
+  minio_data:
+    driver: local

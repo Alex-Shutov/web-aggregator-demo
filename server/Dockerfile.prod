@@ -1,0 +1,18 @@
+FROM node:18-bookworm-slim
+
+WORKDIR /app
+
+ENV PUPPETEER_SKIP_DOWNLOAD=true \
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build && npm prune --omit=dev
+
+RUN chmod +x /app/docker-entrypoint.sh
+
+EXPOSE 3001
+
+ENTRYPOINT ["sh", "/app/docker-entrypoint.sh"]
